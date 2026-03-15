@@ -1,25 +1,29 @@
 package com.narxoz.rpg.decorator;
 
 public class CriticalFocusDecorator extends ActionDecorator {
+    private static final int MULTIPLIER = 2;
+
     public CriticalFocusDecorator(AttackAction wrappedAction) {
         super(wrappedAction);
     }
 
     @Override
     public String getActionName() {
-        // TODO: Decide how this decorator changes the visible action name.
-        return super.getActionName();
+        return super.getActionName() + "Critical Focus";
     }
 
     @Override
     public int getDamage() {
-        // TODO: Add critical-related behavior on top of wrapped damage.
-        return super.getDamage();
+        int base = super.getDamage();
+        long scaled = (long) base * MULTIPLIER;
+        if (scaled > Integer.MAX_VALUE) {
+            return Integer.MAX_VALUE;
+        }
+        return (int) scaled;
     }
 
     @Override
     public String getEffectSummary() {
-        // TODO: Append or compose the critical effect description.
-        return super.getEffectSummary();
+        return appendSummary(super.getEffectSummary(), "Critical Focus: x" + MULTIPLIER + " damage");
     }
 }

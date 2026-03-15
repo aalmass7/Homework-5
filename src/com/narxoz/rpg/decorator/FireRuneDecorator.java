@@ -1,25 +1,30 @@
 package com.narxoz.rpg.decorator;
 
 public class FireRuneDecorator extends ActionDecorator {
+    private static final double MULTIPLIER = 1.30d;
+
     public FireRuneDecorator(AttackAction wrappedAction) {
         super(wrappedAction);
     }
 
     @Override
     public String getActionName() {
-        // TODO: Decide how this decorator changes the visible action name.
-        return super.getActionName();
+        return super.getActionName() + " + Fire Rune";
     }
 
     @Override
     public int getDamage() {
-        // TODO: Add fire-related behavior on top of wrapped damage.
-        return super.getDamage();
+        int base = super.getDamage();
+        double scaled = base * MULTIPLIER;
+        long ceil = (long) Math.ceil(scaled);
+        if (ceil > Integer.MAX_VALUE) {
+            return Integer.MAX_VALUE;
+        }
+        return (int) ceil;
     }
 
     @Override
     public String getEffectSummary() {
-        // TODO: Append or compose the fire effect description.
-        return super.getEffectSummary();
+        return appendSummary(super.getEffectSummary(), "Fire Rune: +30% damage");
     }
 }
