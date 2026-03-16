@@ -15,15 +15,20 @@ public class DungeonFacade {
     }
 
     public AdventureResult runAdventure(HeroProfile hero, BossEnemy boss, AttackAction action) {
-        // TODO: Coordinate subsystem calls in a clean order.
-        // Suggested flow:
-        // 1) preparation
-        // 2) battle
-        // 3) reward
-        AdventureResult result = battleService.battle(hero, boss, action);
-        String preparationSummary = preparationService.prepare(hero, boss, action);
-        result.addLine(preparationSummary);
-        result.setReward(rewardService.determineReward(result));
-        return result;
+        try {
+            AdventureResult result = battleService.battle(hero, boss, action);
+            String preparationSummary = preparationService.prepare(hero, boss, action);
+            result.addLine(preparationSummary);
+            result.setReward(rewardService.determineReward(result));
+            return result;
+        }catch (RuntimeException ex){
+            AdventureResult failed = new AdventureResult();
+            failed.setWinner("NO_CONTEST");
+            failed.setRounds(0);
+            failed.setReward("No reward");
+            failed.addLine("Adventure aborted: " + ex.getMessage());
+            return failed;
+        }
+
     }
 }
