@@ -7,6 +7,7 @@ import com.narxoz.rpg.hero.HeroProfile;
 import java.util.Random;
 
 public class BattleService {
+    public static final int MAX_ROUNDS = 20;
     private Random random = new Random(1L);
 
     public BattleService setRandomSeed(long seed) {
