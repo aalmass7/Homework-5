@@ -9,7 +9,7 @@ public class CriticalFocusDecorator extends ActionDecorator {
 
     @Override
     public String getActionName() {
-        return super.getActionName() + "Critical Focus";
+        return super.getActionName() + " + Critical Focus";
     }
 
     @Override

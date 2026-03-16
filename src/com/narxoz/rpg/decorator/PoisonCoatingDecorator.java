@@ -9,7 +9,7 @@ public class PoisonCoatingDecorator extends ActionDecorator {
 
     @Override
     public String getActionName() {
-        return super.getActionName() + " Poison Coating";
+        return super.getActionName() + " + Poison Coating";
     }
 
     @Override
